@@ -32,26 +32,25 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
-  const { url, title, techs } = request.body;
+  const { url, title, techs, likes } = request.body;
 
-    const repoIndex = repositories.findIndex(respository => repository.id === id);
+  const repoIndex = repositories.findIndex(repository => repository.id === id);
 
   if (repoIndex < 0) {
     return response.status(400).json({ error: 'Repository not found' });
   }
 
-  const updated = { id, url, title, techs };
+  const updated = { id, url, title, techs, likes: repositories.likes };
 
   repositories[repoIndex] = updated;
 
   return response.status(200).json(updated);
-
 });
 
 app.delete("/repositories/:id", (request, response) => {
   const { id } = request.params;
 
-  const repoIndex = repositories.findIndex(respository => repository.id === id);
+  const repoIndex = repositories.findIndex(repository => repository.id === id);
 
   if (repoIndex < 0) {
     return response.status(400).json({ error: 'Repository not found' });
